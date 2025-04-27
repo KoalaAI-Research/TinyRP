@@ -18,13 +18,14 @@ def load_dataset(bin_path, block_size):
 
 from transformers import LlamaConfig, LlamaForCausalLM
 
+max_length = 512   # Maximum sequence length for the model
 config = LlamaConfig(
     vocab_size=tokenizer.vocab_size,
     hidden_size=256,
     intermediate_size=2048,
     num_attention_heads=8,
     num_hidden_layers=6,
-    max_position_embeddings=256,
+    max_position_embeddings=max_length,
     pad_token_id=tokenizer.pad_token_id,
     bos_token_id=tokenizer.bos_token_id,
     eos_token_id=tokenizer.eos_token_id
@@ -32,7 +33,7 @@ config = LlamaConfig(
 
 model = LlamaForCausalLM(config)
 
-print(f"Model Parameters: {sum(p.numel() for p in model.parameters() if p.requires_grad)}")
+print(f"Model parameters: {sum(p.numel() for p in model.parameters()) / 1e6:.2f}M")
 
 from torch.utils.data import Dataset, DataLoader
 

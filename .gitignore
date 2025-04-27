@@ -159,3 +159,9 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 chatml_eval.txt
+/chatml_formatted_dataset
+/chatml_hf_tokenizer
+chatml_tokenizer.json
+/final_tokenized_bin
+/merged_dataset
+/tokenized_chatml_bin
