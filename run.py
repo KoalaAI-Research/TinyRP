@@ -207,7 +207,11 @@ def main():
                     temperature=params['temperature'],
                     top_p=params['top_p']
                 )
-            
+
+            # Format the response for display, so that Ġult is properly displayed as a space + token
+            response = response.replace("Ġ", " ")
+
+            # Display the response
             console.print("\n[bold purple]Assistant[/bold purple]")
             console.print(Panel(response, style="purple"))
             

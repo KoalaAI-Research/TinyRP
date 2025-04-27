@@ -165,3 +165,5 @@ chatml_tokenizer.json
 /final_tokenized_bin
 /merged_dataset
 /tokenized_chatml_bin
+/chatml-tiny-model
+/model_output
