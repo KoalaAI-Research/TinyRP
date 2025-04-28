@@ -16,8 +16,8 @@ print(f"📂 Found {len(corpus_files)} training files.")
 
 # Define ChatML special tokens
 special_tokens = [
-    "<|system|>", "<|user|>", "<|assistant|>",
-    "<|endoftext|>", "<pad>", "<unk>", "<s>", "</s>"
+    "<|im_start|>system", "<|im_start|>user", "<|im_start|>assistant",
+    "<|im_end|>", "<pad>", "<unk>"
 ]
 
 # Build the tokenizer
@@ -28,10 +28,9 @@ tokenizer.decoder = decoders.BPEDecoder()
 
 # Post-processing to add BOS/EOS tokens (optional, for training convenience)
 tokenizer.post_processor = processors.TemplateProcessing(
-    single="<s> $A </s>",
+    single="$A <|im_end|>",
     special_tokens=[
-        ("<s>", 0),
-        ("</s>", 1),
+        ("<|im_end|>", 1),
     ]
 )
 
@@ -57,11 +56,11 @@ hf_tokenizer = PreTrainedTokenizerFast(
     eos_token="</s>",
     unk_token="<unk>",
     pad_token="<pad>",
-    cls_token="<s>",
-    sep_token="</s>",
+    #cls_token="<s>",
+    sep_token="<|im_end|>",
     mask_token="<mask>",  # Add if you plan to use for masked language modeling
     additional_special_tokens=[
-        "<|system|>", "<|user|>", "<|assistant|>", "<|endoftext|>"
+        "<|im_start|>system", "<|im_start|>user", "<|im_start|>assistant", "<|im_end|>"
     ]
 )
 

@@ -13,9 +13,9 @@ os.makedirs(output_dir, exist_ok=True)
 
 # Role mapping for ChatML tags
 role_map = {
-    "system": "<|system|>",
-    "human": "<|user|>",
-    "gpt": "<|assistant|>",
+    "system": "<|im_start|>system",
+    "human": "<|im_start|>user",
+    "gpt": "<|im_start|>assistant",
 }
 
 import re
@@ -42,8 +42,8 @@ def convert_to_chatml(conversation):
     chatml_text = ""
     for turn in conversation:
         role = turn["from"]
-        value = clean_value(turn["value"])
-        tag = role_map.get(role, "<|unknown|>")
+        value = clean_value(turn["value"]) + "\n<|im_end|>"
+        tag = role_map.get(role, "<|unknown|>\n")
         if value:  # only add if there's actually something to say
             chatml_text += f"{tag}\n{value}\n"
     return chatml_text.strip()

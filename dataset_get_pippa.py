@@ -19,9 +19,9 @@ tokenizer = AutoTokenizer.from_pretrained("chatml_hf_tokenizer")
 # ChatML role mapping
 def role_to_tag(role):
     if role.lower() == "user":
-        return "<|user|>"
+        return "<|im_start|>user\n"
     else:
-        return "<|assistant|>"
+        return "<|im_start|>assistant\n"
 
 # Convert to ChatML-style string
 def convert_roleplay_convo(convo):
@@ -40,7 +40,7 @@ for example in dataset:
     convo = example.get("conversation")
     system = example.get("memory")
     if convo:
-        chatml_text = system + "\n" + convert_roleplay_convo(convo)
+        chatml_text = "<|im_start|>system\n" + system + "\n" + convert_roleplay_convo(convo)
         all_convos.append(chatml_text)
 
 # Shuffle and split
